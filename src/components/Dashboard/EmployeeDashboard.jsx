@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
-import Header from "../other/Header"
-import TaskListNumbers from "../other/TaskListNumbers"
+import Header from "../Auth/other/Header"
+import TaskListNumbers from "../Auth/other/TaskListNumbers"
 import TaskList from "../TaskList/TaskList"
 
 const EmployeeDeshboard = (props)=>{

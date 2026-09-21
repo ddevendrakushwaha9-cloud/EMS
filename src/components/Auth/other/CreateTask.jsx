@@ -9,6 +9,7 @@ export const CreateTask = () => {
   const [taskDate, setTaskDate] = useState('')
   const [asignTo, setAsignTo] = useState('')
   const [category, setCategory] = useState('')
+  const [message, setMessage] = useState('')
 
   const [newTask, setNewTask] = useState({})
   
@@ -37,12 +38,15 @@ export const CreateTask = () => {
     const data = JSON.parse(localStorage.getItem('employees'))
     console.log('📊 All Employees:', data)
     
-    data.forEach((elem) => {
-     if (asignTo === elem.firstName) {
-      elem.tasks.push(task); // Latest object
-      elem.taskNumber.newTask=elem.taskNumber.newTask + 1;
-      }
-    });
+    const employee = data.find((elem) => asignTo.trim().toLowerCase() === elem.email.toLowerCase())
+
+    if (!employee) {
+      setMessage('No employee found with this email.')
+      return
+    }
+
+    employee.tasks.push(task)
+    employee.taskNumber.newTask = employee.taskNumber.newTask + 1
 
     // Save updated data back to localStorage
     localStorage.setItem('employees', JSON.stringify(data))
@@ -54,6 +58,7 @@ export const CreateTask = () => {
     setTaskDate('');
     setAsignTo('');
     setCategory('');
+    setMessage('Task assigned successfully.');
     console.log('🔄 Form Reset Complete')
 
   }
@@ -84,11 +89,11 @@ export const CreateTask = () => {
             </div>
             <div>
               <h3 className='text-sm text-gray-300 mb-0.5'>Assign to</h3>
-              <input value={asignTo}
+                <input value={asignTo}
                 onChange={(e)=>{
                   setAsignTo(e.target.value)
                 }}
-              className='text-sm py-1 px-2 w-4/5 rounded outline-none bg-transparent border-[1px] border-gray-400' type="text" name="" id="" placeholder='employee name' />
+              className='text-sm py-1 px-2 w-4/5 rounded outline-none bg-transparent border-[1px] border-gray-400' type="email" name="" id="" placeholder='employee email' required />
             </div>
            <div>
              <h3 className='text-sm text-gray-300 mb-0.5'>Category</h3>
@@ -107,6 +112,7 @@ export const CreateTask = () => {
                   setTaskDescription(e.target.value)
                 }} className='text-sm py-1 px-2 w-full rounded outline-none bg-transparent border-[1px] border-aqua-400' name="" id="" cols="30" rows="10" ></textarea>
              <button className='bg-emerald-500 py-3 hover:bg-emerald-600 px-5 rounded text-sm mt-4 w-full'>Create Task</button>
+             {message && <p className='text-sm text-emerald-400 mt-3'>{message}</p>}
             </div>
           </form>
         </div>
