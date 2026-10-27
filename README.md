@@ -1,6 +1,10 @@
 
 # React + Vite
 
+## Live site
+
+The deployed application is available at [https://ems-31ud.onrender.com/](https://ems-31ud.onrender.com/).
+
 ## Run the project
 
 1. Install [Node.js](https://nodejs.org/) if it is not already installed.
@@ -50,5 +54,5 @@ Email: admin@me.com
 pass: 123
 
 # Employee login:
-Email: employee1@example.com
+Email: employee1@example.com <!--login through employee email -->
 pass: 123
