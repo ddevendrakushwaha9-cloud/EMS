@@ -54,5 +54,5 @@ Email: admin@me.com
 pass: 123
 
 # Employee login:
-Email: employee1@example.com <!--login through employee email -->
+Email: employee1@example.com
 pass: 123
