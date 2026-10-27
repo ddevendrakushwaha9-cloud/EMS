@@ -1,16 +1,6 @@
-import React, { useState, useEffect } from "react"
-
 const Header = (props)=>{
-    const [username, setUsername] = useState('Admin')
     const { data } = props
-
-    useEffect(() => {
-        if(data && data.firstName){
-            setUsername(data.firstName)
-        } else {
-            setUsername('Admin')
-        }
-    }, [data])
+    const username = data?.firstName || 'Admin'
 
     const logOutUser = ()=>{
         localStorage.setItem('loggedInUser', '')

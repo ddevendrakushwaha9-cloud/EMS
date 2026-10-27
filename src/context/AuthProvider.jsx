@@ -1,7 +1,6 @@
-import React, { createContext, useState } from 'react'
-import { getLocalStorage, setLocalStorage } from '../utils/localStorage'
-
-export const AuthContext = createContext()
+import React, { useState } from 'react'
+import { AuthContext } from './AuthContext'
+import { getLocalStorage, setLocalStorage, transitionEmployeeTask } from '../utils/localStorage'
 
 const AuthProvider = ({children}) => {
   
@@ -16,9 +15,14 @@ const AuthProvider = ({children}) => {
     setUserData({employees, admin})
   }
 
+  const updateTaskStatus = (employeeEmail, taskIndex, nextStatus) => {
+    const employees = transitionEmployeeTask(employeeEmail, taskIndex, nextStatus)
+    setUserData((currentData) => ({...currentData, employees}))
+  }
+
   return (
     <div>
-        <AuthContext.Provider value= {{...userData, refreshEmployees}}>
+        <AuthContext.Provider value= {{...userData, refreshEmployees, updateTaskStatus}}>
             {children}
         </AuthContext.Provider>
     </div>

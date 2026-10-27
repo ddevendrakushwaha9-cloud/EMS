@@ -4,7 +4,7 @@ import CreateTask from '../Auth/other/CreateTask'
 import CreateEmployee from '../Auth/other/CreateEmployee'
 import AllTask from '../Auth/other/AllTask'
 import { useContext } from 'react'
-import { AuthContext } from '../../context/AuthProvider'
+import { AuthContext } from '../../context/AuthContext'
 
 export const AdminDashboard = (props) => {
   const authData = useContext(AuthContext)

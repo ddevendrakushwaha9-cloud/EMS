@@ -1,6 +1,6 @@
 import React from 'react'
 
-const AcceptTask = ({data}) => {
+const AcceptTask = ({data, onComplete, onFail}) => {
   
   return (
     <>
@@ -14,8 +14,8 @@ const AcceptTask = ({data}) => {
       
       
         <div className='flex justify-between mt-4'>
-            <button className='bg-green-500 py-1 px-2 text-sm rounded'>Mark as Completed</button>
-            <button className='bg-red-500 py-1 px-2 text-sm rounded'>Mark as Failed</button>
+            <button onClick={onComplete} className='bg-green-500 py-1 px-2 text-sm rounded'>Mark as Completed</button>
+            <button onClick={onFail} className='bg-red-500 py-1 px-2 text-sm rounded'>Mark as Failed</button>
         </div>
       </div>
       

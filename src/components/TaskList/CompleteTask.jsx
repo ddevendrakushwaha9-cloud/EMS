@@ -9,8 +9,8 @@ const CompleteTask = ({data}) => {
         </div>
         <h2 className='mt-5 text-2xl font-semibold'>{data.taskTitle}</h2>
         <p className='text-sm mt-2'>{data.taskDescription}</p>
-        <div className='flex  justify-center items-center mt-2'>
-            <button className='w-[50%] py-1 px-2 text-sm rounded bg-purple-500'>Complete</button>
+        <div className='flex justify-center items-center mt-2'>
+            <span className='w-[50%] py-1 px-2 text-sm rounded bg-purple-500 text-center'>Completed</span>
         </div>
       </div>
   )

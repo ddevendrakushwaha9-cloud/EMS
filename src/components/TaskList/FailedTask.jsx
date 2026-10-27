@@ -9,8 +9,8 @@ const FailedTask = ({data}) => {
         </div>
         <h2 className='mt-5 text-2xl font-semibold'>{data.taskTitle}</h2>
         <p className='text-sm mt-2'>{data.taskDescription}</p>
-        <div className=' flex  justify-center items-center mt-2'>
-            <button className='w-[50%] bg-red-500 py-1 px-2 text-sm rounded'>Failed</button>
+        <div className='flex justify-center items-center mt-2'>
+            <span className='w-[50%] bg-red-500 py-1 px-2 text-sm rounded text-center'>Failed</span>
         </div>
       </div>
   )

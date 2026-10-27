@@ -1,4 +1,25 @@
+
 # React + Vite
+
+## Run the project
+
+1. Install [Node.js](https://nodejs.org/) if it is not already installed.
+2. Open a terminal in the project folder.
+3. Install the project dependencies:
+
+   ```powershell
+   npm install
+   ```
+
+4. Start the development server:
+
+   ```powershell
+   npm run dev
+   ```
+
+5. Open the URL printed in the terminal (usually `http://localhost:5173`) in your browser.
+
+To stop the server, press `Ctrl+C` in the terminal.
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 

@@ -1,67 +1,49 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import Login from './components/Auth/Login'
 import EmployeeDeshboard from "./components/Dashboard/EmployeeDashboard";
 import { AdminDashboard } from "./components/Dashboard/AdminDashboard";
-import { getLocalStorage, setLocalStorage } from "./utils/localStorage";
-import { AuthContext } from "./context/AuthProvider";
+import { AuthContext } from "./context/AuthContext";
 
 const App = () =>{
- 
-  const [user, setUser] = useState(null)
-  const [loggedInUserData, setLoggedInUserData] = useState(null)
+  const [session, setSession] = useState(() => {
+    const loggedInUser = localStorage.getItem('loggedInUser')
+    return loggedInUser ? JSON.parse(loggedInUser) : {role: null, data: null}
+  })
   const authData = useContext(AuthContext)
 
-
-  useEffect(()=>{
-    const loggedInUser = localStorage.getItem('loggedInUser')
-
-    if(loggedInUser){
-      const userData = JSON.parse(loggedInUser)
-      setUser(userData.role)
-      setLoggedInUserData(userData.data)
-      
-    }
-  }, [])
-
-  // useEffect(()=>{
-  //   if(authData){
-  //     const loggedInUser = localStorage.getItem("loggedInUser")
-  //     if(loggedInUser){
-  //       setUser(loggedInUser.role)
-  //     }
-  //   }
-  // }, [authData]);
-
-  
   const handleLogin = (email, password) =>{
-    if(email== 'admin@me.com' && password==123){
-      setUser('admin')
-       localStorage.setItem('loggedInUser', JSON.stringify({role: 'admin'}))
+    const normalizedEmail = email.trim().toLowerCase()
+    const admin = Array.isArray(authData.admin) && authData.admin.some(
+      (item) => item.email?.trim().toLowerCase() === normalizedEmail && item.password === password
+    )
+    const isDefaultAdmin = normalizedEmail === 'admin@me.com' && password === '123'
 
+    if(admin || isDefaultAdmin){
+      setSession({role: 'admin', data: null})
+      localStorage.setItem('loggedInUser', JSON.stringify({role: 'admin'}))
+      return
     }
-    else if(authData){
-      // localStorage से latest data fetch करो ताकि नए tasks दिखें
-      const latestEmployees = JSON.parse(localStorage.getItem('employees'))
-      const employee = latestEmployees.find((e)=>email==e.email && e.password==password)
-      if(employee){
-        setUser('employee')
-        setLoggedInUserData(employee)
-       localStorage.setItem('loggedInUser', JSON.stringify({role: 'employee', data: employee}))
-      }
+
+    const employee = authData.employees.find(
+      (item) => item.email?.trim().toLowerCase() === normalizedEmail && item.password === password
+    )
+    if(employee){
+      setSession({role: 'employee', data: employee})
+      localStorage.setItem('loggedInUser', JSON.stringify({role: 'employee', data: employee}))
+      return
     }
-    else{
-      alert('invalid credentials')
-    }
+
+    window.alert('Invalid credentials')
   }
 
-  
+  const handleLogout = () => setSession({role: null, data: null})
+
   return (
     <>
-    {!user ? <Login handleLogin={handleLogin}/>: ''}
-    {user== 'admin' ? <AdminDashboard changeUser= {setUser}/> : user == 'employee' ? <EmployeeDeshboard changeUser= {setUser} data={loggedInUserData} /> : null}
+    {!session.role ? <Login handleLogin={handleLogin}/>: ''}
+    {session.role === 'admin' ? <AdminDashboard changeUser={handleLogout}/> : session.role === 'employee' ? <EmployeeDeshboard changeUser={handleLogout} data={session.data} /> : null}
     </>
   )
 }
 
 export default App
-

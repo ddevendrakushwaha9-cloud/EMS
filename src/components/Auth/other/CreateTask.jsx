@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import { useContext } from 'react'
+import { AuthContext } from '../../../context/AuthContext'
 
 
 export const CreateTask = () => {
 
+  const authData = useContext(AuthContext)
   
   const [taskTitle, setTaskTitle] = useState('')
   const [taskDescription, setTaskDescription] = useState('')
@@ -50,6 +53,7 @@ export const CreateTask = () => {
 
     // Save updated data back to localStorage
     localStorage.setItem('employees', JSON.stringify(data))
+    authData.refreshEmployees()
   
 
     // Form reset
