@@ -21,6 +21,15 @@
 
 To stop the server, press `Ctrl+C` in the terminal.
 
+## Deploy on Render
+
+This project includes a `render.yaml` Blueprint configuration for a Render Static Site.
+
+1. Push the project to GitHub.
+2. In Render, select **New +** → **Blueprint** and connect the GitHub repository.
+3. Select the repository's `main` branch and apply the Blueprint.
+4. Render will install dependencies, build the Vite app, and publish the `dist` folder. Open the URL Render provides when the deployment is ready.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
